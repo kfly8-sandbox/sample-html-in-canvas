@@ -23,6 +23,47 @@ npm run dev
 
 Open <http://localhost:5173> in the flag-enabled browser.
 
+## Headless CLI
+
+A CLI wrapper (`scripts/diff.ts`) renders two HTML snippet files in a
+flag-enabled Chromium via Playwright and writes `before.png`, `after.png`
+and `diff.png` (with bounding-box overlays) to disk. Intended as a
+feedback loop for AI agents that edit UI components.
+
+First, install Playwright's bundled Chromium:
+
+```sh
+npx playwright install chromium
+```
+
+Then run against two HTML snippet files:
+
+```sh
+npm run diff -- examples/before.html examples/after.html -o ./diff-out
+```
+
+Options:
+
+- `-o, --out-dir <dir>` — output directory (default: `./diff-out`)
+- `--width <px>` / `--height <px>` — canvas size (default: 480 × 320)
+- `--channel <name>` — use a specific Chromium channel (e.g. `chrome-canary`)
+  if Playwright's bundled Chromium doesn't have the feature
+- `--json` — emit machine-readable JSON on stdout (useful for agents)
+- `--keep-open` — leave the browser window open for debugging
+
+Example JSON output (truncated):
+
+```json
+{
+  "diffPixels": 2670,
+  "totalPixels": 153600,
+  "ratio": 0.0173828125,
+  "regions": [
+    { "x": 13, "y": 91, "width": 92, "height": 40, "pixels": 3651 }
+  ]
+}
+```
+
 ## How it works
 
 1. Two `<canvas layoutsubtree>` elements host the "Before" and "After" HTML

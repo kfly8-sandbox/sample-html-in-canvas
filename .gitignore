@@ -1,5 +1,6 @@
 node_modules
 dist
+diff-out
 .vite
 .DS_Store
 *.log

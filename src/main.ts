@@ -9,7 +9,7 @@ import { diffCanvases } from "./diff";
 const SAMPLE_BEFORE = `<div style="padding: 16px; font-family: system-ui; color: #333;">
   <h2 style="margin: 0 0 8px;">Welcome</h2>
   <p>This is the before version.</p>
-  <button style="padding: 8px 16px;">Click me</button>
+  <button style="padding: 8px 16px; background: #0070f3; color: white; border: none; border-radius: 4px;">Click me</button>
 </div>`;
 
 const SAMPLE_AFTER = `<div style="padding: 16px; font-family: system-ui; color: #333;">
