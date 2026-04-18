@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML in Canvas Diff PoC</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <header>
+        <h1>HTML in Canvas Diff PoC</h1>
+        <p class="subtitle">
+          Uses the experimental
+          <code>ctx.drawElementImage()</code> API. Enable
+          <code>chrome://flags/#canvas-draw-element</code> in Chrome Canary
+          (Chromium 147+) before running.
+        </p>
+        <div id="support-banner" class="banner hidden"></div>
+      </header>
+
+      <section class="inputs">
+        <div class="input-card">
+          <label for="before-html">Before HTML</label>
+          <textarea id="before-html" spellcheck="false"></textarea>
+        </div>
+        <div class="input-card">
+          <label for="after-html">After HTML</label>
+          <textarea id="after-html" spellcheck="false"></textarea>
+        </div>
+      </section>
+
+      <section class="actions">
+        <button id="render-btn" type="button">Render &amp; Diff</button>
+        <span id="status" class="status"></span>
+      </section>
+
+      <section class="canvases">
+        <figure>
+          <figcaption>Before</figcaption>
+          <canvas id="before-canvas" width="480" height="320" layoutsubtree>
+            <div id="before-root"></div>
+          </canvas>
+        </figure>
+        <figure>
+          <figcaption>After</figcaption>
+          <canvas id="after-canvas" width="480" height="320" layoutsubtree>
+            <div id="after-root"></div>
+          </canvas>
+        </figure>
+        <figure class="diff">
+          <figcaption>Diff</figcaption>
+          <canvas id="diff-canvas" width="480" height="320"></canvas>
+          <p id="diff-stats" class="stats">Press &quot;Render &amp; Diff&quot;.</p>
+        </figure>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
