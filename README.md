@@ -7,6 +7,10 @@ canvases and compute a pixel-level visual diff with
 [`pixelmatch`](https://github.com/mapbox/pixelmatch) — all inside the browser,
 without any PNG encode/decode round-trip.
 
+**Live demo:** <https://kfly8-sandbox.github.io/sample-html-in-canvas/>
+(Chrome Canary / Brave, with `chrome://flags/#canvas-draw-element`
+enabled — see Requirements below.)
+
 ## Requirements
 
 - Chrome Canary or Brave Stable (Chromium 147+)
