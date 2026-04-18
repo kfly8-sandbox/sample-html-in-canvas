@@ -38,6 +38,10 @@ Open <http://localhost:5173> in the flag-enabled browser.
 
 See `src/render.ts` and `src/diff.ts`.
 
+## Demo
+
+<img width="638" height="882" alt="image" src="https://github.com/user-attachments/assets/f5412773-17c9-43d7-b484-f163f6ca5d8b" />
+
 ## Known limitations
 
 - The API is unshipped. The exact shape of `drawElementImage` / `paint`
