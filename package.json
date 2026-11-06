@@ -8,7 +8,11 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "diff": "tsx scripts/diff.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "exp:02": "tsx experiments/02-attribution/run.ts",
+    "exp:04": "tsx experiments/04-frames/run.ts",
+    "exp:05": "tsx experiments/05-perceptual/run.ts",
+    "exp": "npm run exp:02 && npm run exp:04 && npm run exp:05"
   },
   "dependencies": {
     "pixelmatch": "^7.1.0"

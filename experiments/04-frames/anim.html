@@ -1,0 +1,16 @@
+<style>
+  @keyframes slide { from { transform: translateX(0) } to { transform: translateX(300px) } }
+  @keyframes fade  { from { opacity: 1 } to { opacity: 0 } }
+  @keyframes grow  { from { width: 20px } to { width: 300px } }
+  @keyframes spin  { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
+  .lane { position: absolute; left: 20px; height: 40px; }
+  /* Pure colours so the tracker can find each one by colour alone. */
+  .slide { top: 10px;  width: 40px; background: #00c800; animation: slide 1s ease-out both; }
+  .fade  { top: 60px;  width: 40px; background: #0000ff; animation: fade 1s linear both; }
+  .grow  { top: 110px; background: #ff8c00; animation: grow 1s ease-in-out both; }
+  .spin  { top: 175px; left: 400px; width: 60px; height: 8px; background: #ff0000; animation: spin 1s linear infinite; }
+</style>
+<div class="lane slide"></div>
+<div class="lane fade"></div>
+<div class="lane grow"></div>
+<div class="lane spin"></div>

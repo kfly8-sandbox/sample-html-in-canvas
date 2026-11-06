@@ -4,3 +4,4 @@ diff-out
 .vite
 .DS_Store
 *.log
+experiments/out/
