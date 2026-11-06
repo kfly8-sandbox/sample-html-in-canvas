@@ -17,6 +17,7 @@
 
   const draw = async (canvas, html) => {
     const root = document.createElement("div");
+    root.setAttribute("drawable", "");
     root.innerHTML = html;
     canvas.replaceChildren(root);
     await waitFrames(2);

@@ -47,6 +47,7 @@ export async function renderHtmlToCanvas(
   // innerHTML re-assign) can leave stale references inside the experimental
   // drawElementImage implementation.
   const freshRoot = document.createElement("div");
+  freshRoot.setAttribute("drawable", "");
   freshRoot.innerHTML = html;
   canvas.replaceChildren(freshRoot);
   target.root = freshRoot;
