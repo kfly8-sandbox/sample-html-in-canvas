@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Attribution</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/lab/lab.css" />
+  </head>
+  <body>
+    <main id="app" class="lab">
+      <header>
+        <nav class="crumbs"><a href="./">← All experiments</a></nav>
+        <h1>Which component caused the diff?</h1>
+        <div id="support-banner" class="banner hidden"></div>
+      </header>
+      <section id="demo" class="demo">
+        <p class="lead">
+          Each <code>[data-vrt]</code> element is marked <code>drawable</code> and drawn
+          on its own. A drawable descendant is left out of its ancestor's
+          layer, so each component is judged on its own pixels, and its
+          position is compared separately. A component that was only pushed
+          reads <em>moved</em>, not <em>changed</em>.
+        </p>
+        <div class="inputs">
+          <label>Before <textarea class="before" spellcheck="false"></textarea></label>
+          <label>After <textarea class="after" spellcheck="false"></textarea></label>
+        </div>
+        <button class="run" type="button">Diff by component</button>
+        <div class="hic-host" aria-hidden="true"></div>
+        <div class="output"></div>
+      </section>
+    </main>
+    <script type="module" src="/src/lab/pages/attribution.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stop-motion Capture</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/lab/lab.css" />
+  </head>
+  <body>
+    <main id="app" class="lab">
+      <header>
+        <nav class="crumbs"><a href="./">← All experiments</a></nav>
+        <h1>Stop-motion capture of an animation</h1>
+        <div id="support-banner" class="banner hidden"></div>
+      </header>
+      <section id="demo" class="demo">
+        <p class="lead">
+          61 frames of four 1s CSS animations: every animation paused, seeked to
+          the frame's instant, one rendering frame awaited, then drawn. Each
+          frame's slide position is read from its pixels and plotted against
+          the <code>ease-out</code> curve. Drawing straight after the seek, or
+          inside <code>requestAnimationFrame</code>, gets a stale frame.
+        </p>
+        <button class="run" type="button">Capture again</button>
+        <div class="hic-host" aria-hidden="true"></div>
+        <div class="output"></div>
+      </section>
+    </main>
+    <script type="module" src="/src/lab/pages/frames.ts"></script>
+  </body>
+</html>

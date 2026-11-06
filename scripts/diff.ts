@@ -124,8 +124,8 @@ async function renderInBrowser(
   body { margin: 0; padding: 0; background: #fff; font-family: system-ui; }
   canvas { display: block; background: #fff; }
 </style></head><body>
-  <canvas id="before" width="${opts.width}" height="${opts.height}" layoutsubtree></canvas>
-  <canvas id="after"  width="${opts.width}" height="${opts.height}" layoutsubtree></canvas>
+  <canvas id="before" width="${opts.width}" height="${opts.height}" layoutsubtree content="drawable"></canvas>
+  <canvas id="after"  width="${opts.width}" height="${opts.height}" layoutsubtree content="drawable"></canvas>
 </body></html>`,
     );
 
