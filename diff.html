@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML in Canvas Diff</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <header>
+        <nav class="crumbs"><a href="./">← All experiments</a></nav>
+        <h1>HTML in Canvas Diff PoC</h1>
+        <p class="subtitle">
+          Two HTML snippets drawn with <code>ctx.drawElementImage()</code> and
+          compared with pixelmatch, all in this tab. Needs Chrome 157+ (or
+          Chromium 147+ with <code>chrome://flags/#canvas-draw-element</code>).
+        </p>
+        <div id="support-banner" class="banner hidden"></div>
+      </header>
+
+      <section class="inputs">
+        <div class="input-card">
+          <label for="before-html">Before HTML</label>
+          <textarea id="before-html" spellcheck="false"></textarea>
+        </div>
+        <div class="input-card">
+          <label for="after-html">After HTML</label>
+          <textarea id="after-html" spellcheck="false"></textarea>
+        </div>
+      </section>
+
+      <section class="actions">
+        <button id="render-btn" type="button">Render &amp; Diff</button>
+        <span id="status" class="status"></span>
+      </section>
+
+      <section class="canvases">
+        <figure>
+          <figcaption>Before</figcaption>
+          <canvas id="before-canvas" width="480" height="320" layoutsubtree content="drawable">
+            <div id="before-root" drawable></div>
+          </canvas>
+        </figure>
+        <figure>
+          <figcaption>After</figcaption>
+          <canvas id="after-canvas" width="480" height="320" layoutsubtree content="drawable">
+            <div id="after-root" drawable></div>
+          </canvas>
+        </figure>
+        <figure class="diff">
+          <figcaption>Diff</figcaption>
+          <canvas id="diff-canvas" width="480" height="320"></canvas>
+          <p id="diff-stats" class="stats">Press &quot;Render &amp; Diff&quot;.</p>
+        </figure>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

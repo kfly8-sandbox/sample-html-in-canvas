@@ -3,59 +3,128 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HTML in Canvas Diff PoC</title>
+    <title>HTML in Canvas Experiments</title>
+    <meta name="description" content="What ctx.drawElementImage() could do for visual regression testing: live demos and measured results." />
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/lab/lab.css" />
   </head>
   <body>
-    <main id="app">
+    <main id="app" class="lab home">
       <header>
-        <h1>HTML in Canvas Diff PoC</h1>
-        <p class="subtitle">
-          Uses the experimental
-          <code>ctx.drawElementImage()</code> API. Enable
-          <code>chrome://flags/#canvas-draw-element</code> in Chrome Canary
-          (Chromium 147+) before running.
+        <h1>HTML in Canvas Experiments</h1>
+        <p class="lead">
+          What <code>ctx.drawElementImage()</code> could do for visual regression
+          testing. Each page runs live in this tab, no Playwright. Needs Chrome
+          157+, where HTML in Canvas shipped. Numbers below are from the
+          Playwright runs in <code>experiments/</code> on 2026-11-06.
         </p>
         <div id="support-banner" class="banner hidden"></div>
       </header>
 
-      <section class="inputs">
-        <div class="input-card">
-          <label for="before-html">Before HTML</label>
-          <textarea id="before-html" spellcheck="false"></textarea>
-        </div>
-        <div class="input-card">
-          <label for="after-html">After HTML</label>
-          <textarea id="after-html" spellcheck="false"></textarea>
-        </div>
-      </section>
+      <ul class="cards">
+        <li class="card">
+          <a class="card-link" href="./diff.html">
+            <span class="kicker">PoC</span>
+            <h2>Diff two HTML snippets</h2>
+            <p>
+              Draw two snippets onto canvases and compare them with pixelmatch,
+              without a screenshot or a PNG round trip.
+            </p>
+            <p class="finding">
+              On 13 rendering cases (text, shadow, blur, emoji, form controls,
+              SVG…) the drawing matched <code>page.screenshot</code> byte for byte.
+            </p>
+            <span class="go">Open →</span>
+          </a>
+        </li>
 
-      <section class="actions">
-        <button id="render-btn" type="button">Render &amp; Diff</button>
-        <span id="status" class="status"></span>
-      </section>
+        <li class="card">
+          <a class="card-link" href="./attribution.html">
+            <span class="kicker">Experiment 02</span>
+            <h2>Which component caused the diff?</h2>
+            <p>
+              Draw every component on its own. A drawable descendant is left out
+              of its ancestor's layer, so a component is judged on its own pixels,
+              and its position separately.
+            </p>
+            <p class="finding">
+              A whole-image diff painted 8,162 px red below a grown notice. By
+              component: 3 <em>changed</em> (the causes), 3 <em>moved 0, 21</em>
+              (pushed, pixels unchanged).
+            </p>
+            <span class="go">Open →</span>
+          </a>
+        </li>
 
-      <section class="canvases">
-        <figure>
-          <figcaption>Before</figcaption>
-          <canvas id="before-canvas" width="480" height="320" layoutsubtree>
-            <div id="before-root"></div>
-          </canvas>
-        </figure>
-        <figure>
-          <figcaption>After</figcaption>
-          <canvas id="after-canvas" width="480" height="320" layoutsubtree>
-            <div id="after-root"></div>
-          </canvas>
-        </figure>
-        <figure class="diff">
-          <figcaption>Diff</figcaption>
-          <canvas id="diff-canvas" width="480" height="320"></canvas>
-          <p id="diff-stats" class="stats">Press &quot;Render &amp; Diff&quot;.</p>
-        </figure>
+        <li class="card">
+          <a class="card-link" href="./frames.html">
+            <span class="kicker">Experiment 04</span>
+            <h2>Stop-motion capture of an animation</h2>
+            <p>
+              Pause, seek, wait one rendering frame, draw: 61 frames of four CSS
+              animations, each measured from its pixels against its timing
+              function.
+            </p>
+            <p class="finding">
+              Seek + 1 frame: 0.4 px worst error. Drawing straight after a seek
+              gives the same frame every time; drawing inside
+              <code>requestAnimationFrame</code> is exactly one frame behind.
+            </p>
+            <span class="go">Open →</span>
+          </a>
+        </li>
+
+        <li class="card">
+          <a class="card-link" href="./gpu-lens.html">
+            <span class="kicker">Experiment 05</span>
+            <h2>Diff through a colour-vision lens, on the GPU</h2>
+            <p>
+              A WebGL2 shader applies a colour-vision-deficiency matrix and
+              pixelmatch's colour delta per pixel, checked against pixelmatch on
+              the CPU.
+            </p>
+            <p class="finding">
+              A red→green status badge differs by 0 px through deuteranopia: the
+              change is carried by colour alone. With a ✕/✓ label, 23% survives.
+            </p>
+            <span class="go">Open →</span>
+          </a>
+        </li>
+      </ul>
+
+      <section class="notes">
+        <h2>Learned building these</h2>
+        <ul>
+          <li>
+            The shipped API needs <code>content="drawable"</code> on the canvas and
+            <code>drawable</code> on every element passed to
+            <code>drawElementImage</code>.
+          </li>
+          <li>
+            A drawable element's <code>getBoundingClientRect()</code> is where it was
+            last drawn; read its layout position from <code>offsetLeft</code> /
+            <code>offsetTop</code>.
+          </li>
+          <li>
+            The page's CSS applies to the canvas subtree. A shadow root isolates it.
+          </li>
+          <li>
+            The canvas must be painted: off-screen to the left it draws transparent
+            with no error, and <code>visibility: hidden</code> throws.
+          </li>
+          <li>Media queries follow the page viewport, not the canvas size.</li>
+          <li>
+            The drawing is scaled by bitmap size / CSS size: keep a drawable
+            canvas at its natural CSS size.
+          </li>
+        </ul>
+        <p>
+          Details and full tables:
+          <a href="https://github.com/kfly8-sandbox/sample-html-in-canvas/blob/main/experiments/README.md">experiments/README.md</a>.
+        </p>
       </section>
     </main>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/lab/pages/home.ts"></script>
   </body>
 </html>

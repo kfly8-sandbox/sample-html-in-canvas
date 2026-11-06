@@ -7,15 +7,17 @@ canvases and compute a pixel-level visual diff with
 [`pixelmatch`](https://github.com/mapbox/pixelmatch) — all inside the browser,
 without any PNG encode/decode round-trip.
 
-**Live demo:** <https://kfly8-sandbox.github.io/sample-html-in-canvas/>
-(Chrome Canary / Brave, with `chrome://flags/#canvas-draw-element`
-enabled — see Requirements below.)
+**Live demo:** <https://kfly8-sandbox.github.io/sample-html-in-canvas/> — an index of
+the experiments; the original snippet diff is `diff.html`.
+(Chrome 157+ — see Requirements below.)
 
 ## Requirements
 
-- Chrome Canary or Brave Stable (Chromium 147+)
-- Enable the flag `chrome://flags/#canvas-draw-element`
-  (Brave: `brave://flags/#canvas-draw-element`) and restart the browser.
+- Chrome 157+ stable (HTML in Canvas shipped; no flag needed), or
+  Chrome Canary / Brave (Chromium 147+) with `chrome://flags/#canvas-draw-element`
+  enabled.
+- The shipped API needs `content="drawable"` on the canvas and `drawable` on
+  each element passed to `drawElementImage`; this repo sets both.
 - Node.js 20+
 
 ## Setup
@@ -25,7 +27,7 @@ npm install
 npm run dev
 ```
 
-Open <http://localhost:5173> in the flag-enabled browser.
+Open <http://localhost:5173> in Chrome 157+.
 
 ## Headless CLI
 
@@ -87,10 +89,17 @@ See `src/render.ts` and `src/diff.ts`.
 
 <img width="638" height="882" alt="image" src="https://github.com/user-attachments/assets/f5412773-17c9-43d7-b484-f163f6ca5d8b" />
 
+## Experiments
+
+`experiments/` measures what HTML in Canvas could do for visual regression
+testing: attributing a diff to the component that caused it, stop-motion
+capture of animations, and diffing through perceptual filters. See
+[experiments/README.md](experiments/README.md).
+
 ## Known limitations
 
-- The API is unshipped. The exact shape of `drawElementImage` / `paint`
-  may change.
+- The API shipped in Chrome 157 with a different shape from the earlier
+  explainer (`content="drawable"` / `drawable`); details may still move.
 - Cross-origin resources (e.g. remote images, cross-origin `<iframe>`) are
   not drawn.
 - Anti-aliasing can cause false-positive diffs; `pixelmatch` is called with

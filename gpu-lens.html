@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPU Colour Lens</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/lab/lab.css" />
+  </head>
+  <body>
+    <main id="app" class="lab">
+      <header>
+        <nav class="crumbs"><a href="./">← All experiments</a></nav>
+        <h1>Diff through a colour-vision lens, on the GPU</h1>
+        <div id="support-banner" class="banner hidden"></div>
+      </header>
+      <section id="demo" class="demo">
+        <p class="lead">
+          Both drawings go to WebGL2 as textures. One fragment shader applies a
+          colour-vision-deficiency matrix (Machado et al. 2009, linear RGB) and
+          pixelmatch's YIQ colour delta per pixel. A change that vanishes
+          through a lens is carried by colour alone. The same arithmetic runs
+          on the CPU with pixelmatch to check the GPU count.
+        </p>
+        <p class="renderer mono"></p>
+        <div class="controls">
+          <label>Case <select class="case"></select></label>
+          <label>Lens <select class="lens"></select></label>
+        </div>
+        <div class="hic-host" aria-hidden="true"></div>
+        <div class="output"></div>
+        <h3>Every case through every lens</h3>
+        <button class="run-all" type="button">Run again</button>
+        <div class="all"></div>
+      </section>
+    </main>
+    <script type="module" src="/src/lab/pages/gpu-lens.ts"></script>
+  </body>
+</html>

@@ -193,3 +193,22 @@ figure.diff canvas {
   font-size: 13px;
   color: #c8ccd6;
 }
+
+.crumbs a {
+  color: #8ab4ff;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+/* drawElementImage scales by bitmap size / CSS size, so a drawable canvas
+   must keep its natural size: shrinking it with width: 100% would redraw
+   the snippet larger. Narrow screens scroll the figure instead. */
+canvas[layoutsubtree] {
+  width: auto;
+  max-width: none;
+}
+
+.canvases figure {
+  overflow-x: auto;
+  min-width: 0;
+}
